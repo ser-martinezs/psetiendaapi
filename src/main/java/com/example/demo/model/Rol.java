@@ -3,7 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.GenerationType;  
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,22 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Producto {
+public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombreProducto", length = 50, nullable = false)
-    private String nombre;
-
-    @Column(name = "descripcion", length = 250, nullable = false)
-    private String descripcion;
-
-    @Column(name = "precio", nullable = false)
-    private Integer precio;
-
-    @Column(name = "stock", nullable = false)
-    private Integer stock;
+    @Column(name = "nombreRol", length = 50, nullable = false, unique = true)
+    private String nombreRol;
 
 }
