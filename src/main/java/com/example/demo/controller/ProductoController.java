@@ -40,7 +40,7 @@ public class ProductoController {
         return ResponseEntity.ok(producto);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         Producto createProducto = productoService.saveProducto(producto);
         return ResponseEntity.ok(createProducto);
