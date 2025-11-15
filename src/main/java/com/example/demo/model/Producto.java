@@ -34,15 +34,12 @@ public class Producto {
 
     @Column(name = "stock", nullable = false)
     private Integer stock;
-
-    @ManyToMany
-    Set<Categoria> Categorias;
     
     @ManyToMany
     @JoinTable(
         name = "producto_categorias", 
         joinColumns = @JoinColumn(name = "id_producto"), 
         inverseJoinColumns = @JoinColumn(name = "id_categoria"))
-    Set<Categoria> categoriasProducto;
+    Set<Categoria> categorias;
 
 }

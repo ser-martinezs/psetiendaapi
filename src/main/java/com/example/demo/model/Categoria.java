@@ -24,6 +24,6 @@ public class Categoria {
     @Column(name = "nombreCategoria",length = 50, nullable = false)
     private String nombreCategoria;
 
-    @ManyToMany(mappedBy = "categoriasProducto")
+    @ManyToMany(mappedBy = "categorias")
     Set<Producto> productos;
 }
