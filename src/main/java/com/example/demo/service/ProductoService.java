@@ -51,6 +51,10 @@ public class ProductoService {
     }
 
     public void deleteProducto(Integer id) {
-        productoRepository.deleteById(id);
+        Producto producto = productoRepository.findById(id).orElse(null);
+        if (producto != null) {
+            producto.getCategorias().clear(); 
+            productoRepository.delete(producto);
+        }
     }
 }

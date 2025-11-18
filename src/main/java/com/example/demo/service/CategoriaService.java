@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.CategoriaRepository;
 import jakarta.transaction.Transactional;
 import com.example.demo.model.Categoria;
+import com.example.demo.model.Producto;
+
 import java.util.List;
 
 @Service
@@ -26,6 +28,10 @@ public class CategoriaService {
     }
 
     public void deleteCategoria(Integer id) {
-        categoriaRepository.deleteById(id);
-    }
+        Categoria categoria = categoriaRepository.findById(id).orElse(null);
+        if (categoria != null) {
+            categoriaRepository.deleteProductoCategoriaRelations(id);
+            categoriaRepository.deleteById(id);
+        }
+    }  
 }
