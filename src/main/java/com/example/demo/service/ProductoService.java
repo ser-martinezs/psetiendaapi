@@ -3,8 +3,12 @@ package com.example.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.ProductoRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.transaction.Transactional;
+import com.example.demo.repository.CategoriaRepository;
+import com.example.demo.model.Categoria;
 import com.example.demo.model.Producto;
 
 @Service
@@ -13,6 +17,9 @@ public class ProductoService {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     public List<Producto> getAllProducts(){
         return productoRepository.findAll();
@@ -46,7 +53,17 @@ public class ProductoService {
         return null;
     }
 
-    public  Producto saveProducto(Producto producto) {
+    public Producto saveProducto(Producto producto) {
+        if (producto.getCategorias() != null) {
+            List<Categoria> categoriasExistentes = new ArrayList<>();
+            for (Categoria cat : producto.getCategorias()) {
+                if (cat.getId() != null) {
+                    categoriaRepository.findById(cat.getId())
+                        .ifPresent(categoriasExistentes::add);
+                }
+            }
+            producto.setCategorias(categoriasExistentes);
+        }
         return productoRepository.save(producto);
     }
 

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.CategoriaRepository;
 import jakarta.transaction.Transactional;
 import com.example.demo.model.Categoria;
-import com.example.demo.model.Producto;
-
 import java.util.List;
 
 @Service
