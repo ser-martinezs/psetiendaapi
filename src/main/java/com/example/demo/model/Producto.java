@@ -37,7 +37,7 @@ public class Producto {
     @Column(name = "stock", nullable = false)
     private Integer stock;
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
         name = "producto_categorias",
         joinColumns = @JoinColumn(name = "id_producto"),  
