@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -35,6 +37,18 @@ public class ClienteController {
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
         Cliente createCliente = clienteService.saveCliente(cliente);
         return ResponseEntity.ok(createCliente);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Cliente cliente) {
+        Cliente login = clienteService.login(cliente);
+
+        if (login != null) {
+            login.setContrasena(null);
+            return ResponseEntity.ok(login);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+        }
     }
 
     @PutMapping("/{id}")

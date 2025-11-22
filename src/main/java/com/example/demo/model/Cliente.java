@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -26,6 +27,10 @@ public class Cliente {
 
     @Column(name = "emailCliente", length = 150, nullable = false, unique = true)
     private String email;
+    
+    @Column(name = "contrasenaCliente", length = 255, nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String contrasena;
 
     @Column(name = "telefonoCliente", length = 15, nullable = false)
     private String telefono;
