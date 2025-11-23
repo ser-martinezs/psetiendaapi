@@ -55,7 +55,9 @@ public class ClienteService {
     }
 
     public void deleteCliente(Integer id) {
-        pedidoService.deletePedido(pedidoRepository.findByClienteId(id).getId());
+        if (pedidoRepository.findByClienteId(id) != null) {
+               pedidoService.deletePedido(pedidoRepository.findByClienteId(id).getId());
+        }
         clienteRepository.deleteById(id);
     }
 }

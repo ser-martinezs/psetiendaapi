@@ -1,0 +1,105 @@
+{
+  "regiones": [
+    { "nombre": "Metropolitana de Santiago" },
+    { "nombre": "Valparaíso" }
+  ],
+  "comunas": [
+    { "nombre": "Santiago", "region": { "id": 1 } },
+    { "nombre": "Providencia", "region": { "id": 1 } },
+    { "nombre": "Valparaíso", "region": { "id": 2 } }
+  ],
+  "roles": [
+    { "nombreRol": "Administrador" },
+    { "nombreRol": "Cliente" }
+  ],
+  "clientes": [
+    {
+      "nombre": "Ana Martínez",
+      "email": "ana.martinez@example.com",
+      "contrasena": "password123",
+      "telefono": "987654321",
+      "direccion": "Avenida Principal 456",
+      "comuna": { "id": 1 },
+      "rol": { "id": 2 }
+    },
+    {
+      "nombre": "Carlos Rodríguez",
+      "email": "carlos.rodriguez@example.com",
+      "contrasena": "securePass456",
+      "telefono": "912345678",
+      "direccion": "Pasaje Secundario 789",
+      "comuna": { "id": 2 },
+      "rol": { "id": 2 }
+    }
+  ],
+  "categorias": [
+    { "nombreCategoria": "Electrónica" },
+    { "nombreCategoria": "Ropa y Accesorios" },
+    { "nombreCategoria": "Hogar y Cocina" }
+  ],
+  "productos": [
+    {
+      "nombre": "Laptop Pro 15",
+      "descripcion": "Laptop de alto rendimiento para profesionales.",
+      "precio": 1200000,
+      "stock": 15,
+      "categorias": [{ "id": 1 }]
+    },
+    {
+      "nombre": "Camiseta de Algodón",
+      "descripcion": "Camiseta suave y cómoda, 100% algodón.",
+      "precio": 15000,
+      "stock": 100,
+      "categorias": [{ "id": 2 }]
+    },
+    {
+      "nombre": "Juego de Sartenes Antiadherentes",
+      "descripcion": "Set de 3 sartenes para todo tipo de cocinas.",
+      "precio": 45000,
+      "stock": 50,
+      "categorias": [{ "id": 3 }]
+    }
+  ],
+  "estadosPedido": [
+    { "nombreEstadoPedido": "Pendiente de Pago" },
+    { "nombreEstadoPedido": "En Preparación" },
+    { "nombreEstadoPedido": "Enviado" },
+    { "nombreEstadoPedido": "Entregado" },
+    { "nombreEstadoPedido": "Cancelado" }
+  ],
+  "metodosEnvio": [
+    { "nombreMetodoEnvio": "Retiro en Tienda" },
+    { "nombreMetodoEnvio": "Despacho a Domicilio Estándar" },
+    { "nombreMetodoEnvio": "Despacho a Domicilio Express" }
+  ],
+  "metodosPago": [
+    { "nombreMetodoPago": "Tarjeta de Crédito/Débito" },
+    { "nombreMetodoPago": "Transferencia Bancaria" }
+  ],
+  "pedidos": [
+    {
+      "fechaPedido": "2025-11-21T10:00:00",
+      "totalPedido": 1215000.0,
+      "cliente": { "id": 1 },
+      "metodoEnvio": { "id": 2 },
+      "metodoPago": { "id": 1 },
+      "estadoPedido": { "id": 2 }
+    }
+  ],
+  "detallesPedido": [
+    {
+      "cantidad": 1,
+      "precioUnitario": 1200000.0,
+      "subtotal": 1200000.0,
+      "pedido": { "id": 1 },
+      "producto": { "id": 1 }
+    },
+    {
+      "cantidad": 1,
+      "precioUnitario": 15000.0,
+      "subtotal": 15000.0,
+      "pedido": { "id": 1 },
+      "producto": { "id": 2 }
+    }
+  ]
+}
