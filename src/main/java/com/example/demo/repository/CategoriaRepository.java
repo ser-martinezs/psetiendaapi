@@ -11,6 +11,6 @@ import com.example.demo.model.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria,Integer>{
 
     @Modifying
-    @Query(value = "DELETE FROM producto_categorias pc WHERE pc.categoria_id = :categoriaId", nativeQuery = true)
-    void deleteProductoCategoriaRelations(@Param("categoriaId") Integer categoriaId);
+    @Query(value = "DELETE FROM producto_categorias pc WHERE pc.id_categoria = :id_categoria", nativeQuery = true)
+    void deleteProductoCategoriaRelations(@Param("id_categoria") Integer id_categoria);
 }

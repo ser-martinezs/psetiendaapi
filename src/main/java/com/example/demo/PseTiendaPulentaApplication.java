@@ -9,5 +9,4 @@ public class PseTiendaPulentaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PseTiendaPulentaApplication.class, args);
 	}
-
 }
