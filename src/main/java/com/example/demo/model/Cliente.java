@@ -46,10 +46,8 @@ public class Cliente {
     @JoinColumn(name = "idRol", nullable = false)
     private Rol rol;
 
-    /*
     @Column(name = "carrito", length = 512, nullable = true)
     // it killed the app ll
     private String carrito;
-    */
 
 }
