@@ -45,4 +45,8 @@ public class Cliente {
     @ManyToOne
     @JoinColumn(name = "idRol", nullable = false)
     private Rol rol;
+
+    @Column(name = "carrito", length = 512, nullable = false)
+    private String carrito;
+
 }
