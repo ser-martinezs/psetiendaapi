@@ -3,16 +3,31 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.LoginRequest;
 import com.example.demo.model.Cliente;
 import com.example.demo.service.ClienteService;
+import com.example.demo.service.JwtService;
 
 @RestController
 @RequestMapping("api/v1/clientes")
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getAllClientes() {
@@ -38,16 +53,26 @@ public class ClienteController {
         return ResponseEntity.ok(createCliente);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Cliente cliente) {
-        Cliente login = clienteService.login(cliente);
+@PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getContrasena())
+        );
 
-        if (login != null) {
-            login.setContrasena(null);
-            return ResponseEntity.ok(login);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
-        }
+        Cliente user = clienteService.getClienteById(
+             clienteService.findByEmail(request.getEmail()).getId() 
+        );
+        
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("rolId", user.getRol().getId());
+        
+        String jwtToken = jwtService.generateToken(extraClaims, clienteService.loadUserByUsername(user.getEmail()));
+
+        user.setContrasena(null); 
+        return ResponseEntity.ok(AuthResponse.builder()
+                .token(jwtToken)
+                .cliente(user)
+                .build());
     }
 
     @PutMapping("/{id}")

@@ -1,6 +1,11 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.ClienteRepository;
@@ -8,10 +13,11 @@ import com.example.demo.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import com.example.demo.model.Cliente;
 import java.util.List;
+import java.util.Collections;
 
 @Service
 @Transactional
-public class ClienteService {
+public class ClienteService implements UserDetailsService{
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -23,6 +29,23 @@ public class ClienteService {
 
     @Autowired
     private PedidoService pedidoService;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Cliente cliente = clienteRepository.findByEmail(email);
+        if (cliente == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
+        }
+        String roleName = "ROLE_USER";
+        if (cliente.getRol() != null && cliente.getRol().getId() == 3) {
+            roleName = "ROLE_ADMIN";
+        }
+        return new User(
+                cliente.getEmail(), 
+                cliente.getContrasena(), 
+                Collections.singletonList(new SimpleGrantedAuthority(roleName))
+        );
+    }    
 
     public List<Cliente> getAllClientes(){
         return clienteRepository.findAll();
@@ -59,5 +82,9 @@ public class ClienteService {
                pedidoService.deletePedido(pedidoRepository.findByClienteId(id).getId());
         }
         clienteRepository.deleteById(id);
+    }
+
+    public Cliente findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
     }
 }
