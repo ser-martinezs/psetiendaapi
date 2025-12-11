@@ -42,4 +42,8 @@ public class Producto {
         inverseJoinColumns = @JoinColumn(name = "id_categoria")  
     )
     private List<Categoria> categorias;
+
+    
+    @Column(name = "bbID", length = 8, nullable = true)
+    private String bbID;
 }

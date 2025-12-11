@@ -48,5 +48,4 @@ public class Cliente {
 
     @Column(name = "carrito", length = 512, nullable = true)
     private String carrito;
-
 }
