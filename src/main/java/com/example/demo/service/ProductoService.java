@@ -1,14 +1,17 @@
 package com.example.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.demo.repository.ProductoRepository;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.transaction.Transactional;
-import com.example.demo.repository.CategoriaRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.Categoria;
 import com.example.demo.model.Producto;
+import com.example.demo.repository.CategoriaRepository;
+import com.example.demo.repository.ProductoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -49,6 +52,10 @@ public class ProductoService {
 
             if(producto.getCategorias() != null) {
                 existingproducto.setCategorias(producto.getCategorias());
+            }
+            
+            if(producto.getBbID() != null) {
+                existingproducto.setBbID(producto.getBbID());
             }
 
             return productoRepository.save(existingproducto);
