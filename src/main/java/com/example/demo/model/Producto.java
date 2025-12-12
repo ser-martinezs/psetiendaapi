@@ -44,6 +44,6 @@ public class Producto {
     private List<Categoria> categorias;
 
     
-    @Column(name = "bbID", length = 8, nullable = true)
+    @Column(name = "bbID", length = 512, nullable = true)
     private String bbID;
 }
